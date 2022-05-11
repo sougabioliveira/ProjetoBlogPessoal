@@ -31,11 +31,13 @@ public class Postagem {
 	@NotNull
 	public String texto;
 	
-	
 	@ManyToOne
 	@JsonIgnoreProperties("postagem")
 	private Tema tema;
 	
+	@ManyToOne
+	@JsonIgnoreProperties("postagem")
+	private Usuario usuario;
 	
 	public Tema getTema() {
 		return tema;
