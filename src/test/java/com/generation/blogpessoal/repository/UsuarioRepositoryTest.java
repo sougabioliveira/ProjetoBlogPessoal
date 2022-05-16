@@ -1,0 +1,52 @@
+package com.generation.blogpessoal.repository;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.Optional;
+
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+
+import com.generation.blogpessoal.model.Usuario;
+
+
+//este define que a classe é de teste, que vai rodar em uma porta aleatória a cada teste
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+//cria uma instancia de teste que define que o ciclo de vida do teste irá respeitar o ciclo de vida da classe. Será executado e resetado, após o uso.
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+public class UsuarioRepositoryTest {
+	
+	@Autowired
+	private UsuarioRepository repository;
+	
+	@BeforeAll
+	void start() {
+		
+		repository.save(new Usuario(0L, "Maiar", "isadora@gmail.com","51 e pinga", "https://i.imgur.com/FETvs20.jpg"));
+		
+		repository.save(new Usuario(0L, "Michael", "michaeltrimundial@gmail.com","nunca fui rebaixado", "https://i.imgur.com/FETvs20.jpg"));
+	
+		repository.save(new Usuario(0L, "Brocco", "broco@gmail.com","broccolis", "https://i.imgur.com/FETvs20.jpg"));
+	}
+	//ISTO TUDO É UM TESTE, ele vai te retornar um usuario:
+	@Test
+	@DisplayName("Teste que retorna 1 usuario")
+	//quando tem um "public" estamos criando uma função
+	public void retornaUmUsuario() {
+		// O optional é quando tem mais de uma resposta
+		//O List é quando temos certeza de que há uma lista
+		Optional<Usuario> usuario = repository.findByUsuario("isadora@gmail.com");
+		assertTrue(usuario.get().getUsuario().equals("isadora@gmail.com"));
+	}
+	
+	@AfterAll
+	public void end() {
+		repository.deleteAll();
+	}
+}

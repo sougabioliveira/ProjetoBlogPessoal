@@ -12,7 +12,10 @@ import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 
 
 @Entity
@@ -25,7 +28,8 @@ public class Usuario {
 	
 	private String nome;
 	
-	@NotNull
+	@Schema(example = "oliveira.gabrielagomes@email.com.br")
+	@NotNull (message = "Campo obrigatório")
 	@Email(message  = "O ususario deve ser um e-mail válido")
 	private String usuario;
 	
@@ -37,6 +41,19 @@ public class Usuario {
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties("usuario")
 	private List<Postagem> postagem;
+
+	//Metodos construtores para testes	
+	//os parametros precisam estar na mesma ordem que eles são declarados
+	public Usuario(long id, String nome, String usuario, String senha, String foto) {
+		this.id = id;
+		this.nome = nome;
+		this.usuario = usuario;
+		this.senha = senha;
+		this.foto = foto;
+	}
+	
+	//construtor vazio
+	public Usuario() { }
 
 	
 	public Long getId() {
