@@ -1,7 +1,9 @@
 package com.generation.blogpessoal.repository;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.AfterAll;
@@ -43,6 +45,17 @@ public class UsuarioRepositoryTest {
 		//O List é quando temos certeza de que há uma lista
 		Optional<Usuario> usuario = repository.findByUsuario("isadora@gmail.com");
 		assertTrue(usuario.get().getUsuario().equals("isadora@gmail.com"));
+	}
+	
+	@Test
+	@DisplayName("Retorna 3 usuarios")
+	public void retornaTresUsuarios() {
+		
+		List<Usuario> listaDeUsuarios = repository.findAllByNomeContainingIgnoreCase("Maiar");
+		assertEquals(3, listaDeUsuarios.size());
+		assertTrue(listaDeUsuarios.get(0).getNome().equals("Maiar"));
+		assertTrue(listaDeUsuarios.get(1).getNome().equals("Michael"));
+		assertTrue(listaDeUsuarios.get(2).getNome().equals("Brocco"));
 	}
 	
 	@AfterAll
