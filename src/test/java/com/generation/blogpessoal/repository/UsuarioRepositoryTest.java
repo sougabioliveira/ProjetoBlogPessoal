@@ -30,20 +30,20 @@ public class UsuarioRepositoryTest {
 	@BeforeAll
 	void start() {
 		
-		repository.save(new Usuario(0L, "Maiar", "isadora@gmail.com","51 e pinga", "https://i.imgur.com/FETvs20.jpg"));
-		
-		repository.save(new Usuario(0L, "Michael", "michaeltrimundial@gmail.com","nunca fui rebaixado", "https://i.imgur.com/FETvs20.jpg"));
-	
-		repository.save(new Usuario(0L, "Brocco", "broco@gmail.com","broccolis", "https://i.imgur.com/FETvs20.jpg"));
+		repository.save(new Usuario(1L, "Maiar", "isadora@gmail.com","51 e pinga", "https://i.imgur.com/FETvs20.jpg"));
+		repository.save(new Usuario(2L, "Michael", "michaeltrimundial@gmail.com","nunca fui rebaixado", "https://i.imgur.com/FETvs20.jpg"));
+		repository.save(new Usuario(3L, "Brocco", "broco@gmail.com","broccolis", "https://i.imgur.com/FETvs20.jpg"));
 	}
+	
 	//ISTO TUDO É UM TESTE, ele vai te retornar um usuario:
 	@Test
 	@DisplayName("Teste que retorna 1 usuario")
 	//quando tem um "public" estamos criando uma função
-	public void retornaUmUsuario() {
+	public void retornaUmUsuarioPeloUsuario() {
 		// O optional é quando tem mais de uma resposta
 		//O List é quando temos certeza de que há uma lista
 		Optional<Usuario> usuario = repository.findByUsuario("isadora@gmail.com");
+		System.out.println("usuario "+ usuario.get());
 		assertTrue(usuario.get().getUsuario().equals("isadora@gmail.com"));
 	}
 	
@@ -51,11 +51,20 @@ public class UsuarioRepositoryTest {
 	@DisplayName("Retorna 3 usuarios")
 	public void retornaTresUsuarios() {
 		
-		List<Usuario> listaDeUsuarios = repository.findAllByNomeContainingIgnoreCase("Maiar");
+		List<Usuario> listaDeUsuarios = repository.findAll();
 		assertEquals(3, listaDeUsuarios.size());
 		assertTrue(listaDeUsuarios.get(0).getNome().equals("Maiar"));
 		assertTrue(listaDeUsuarios.get(1).getNome().equals("Michael"));
 		assertTrue(listaDeUsuarios.get(2).getNome().equals("Brocco"));
+	}
+	
+	@Test
+	@DisplayName("Retorna 1 usuario")
+	public void retornaUmUsuarioPeloNome() {
+		
+		List<Usuario> listaDeUsuarios = repository.findAllByNomeContainingIgnoreCase("Maiar");
+		assertEquals(1, listaDeUsuarios.size());
+		assertTrue(listaDeUsuarios.get(0).getNome().equals("Maiar"));
 	}
 	
 	@AfterAll

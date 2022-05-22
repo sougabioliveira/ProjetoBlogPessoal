@@ -29,6 +29,18 @@ public class UsuarioService {
 		//salvo o usuario com a senha já criptografada no banco de dados
 		return Optional.of(repository.save(usuario));	
 	}
+	
+	public Optional<Usuario> atualizaUsuario(Usuario usuario){
+		
+		//valida se o usuario já existe
+		if(repository.findByUsuario(usuario.getUsuario()).isPresent()) {
+			//atualiza o usuario 
+			return Optional.of(repository.save(usuario));	
+		} else {
+			return Optional.empty();	
+		}		
+	}
+	
 	private String criptografarSenha(String senha){
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		return encoder.encode(senha);
@@ -51,6 +63,7 @@ public class UsuarioService {
 		
 		return Optional.empty();
 	}
+	
 	//ESSA PARTE FAZ O COMPARATIVO DA SENHA DIGITADA COM A SENHA DO BANCO DE DADOS	
 	private boolean compararSenhas(String senhaDigitada, String senhaBanco) {
 		
@@ -58,6 +71,7 @@ public class UsuarioService {
 		
 		return encoder.matches(senhaDigitada, senhaBanco);
 	}
+	
 	//AQUI GERA O BASIC TOKEN, DEPOIS DE TODAS AS VALIDAÇÕES DAREM CERTAS
 	private String gerarBasicToken(String usuario, String senha) {
 	
