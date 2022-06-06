@@ -41,7 +41,7 @@ import com.generation.blogpessoal.service.UsuarioService;
 	@DisplayName("Cadastrar um usuário")
 	public void deveCriarUmUsuario() {
 		
-		HttpEntity<Usuario> requisicao = new HttpEntity<Usuario>(new Usuario(0L, "Brocco", "broco@gmail.com","broccolis", "https://i.imgur.com/FETvs20.jpg"));
+		HttpEntity<Usuario> requisicao = new HttpEntity<Usuario>(new Usuario(0L, "Brocco", "broco@gmail.com","broccolis", "https://i.imgur.com/FETvs20.jpg","Normal"));
 		
 		ResponseEntity<Usuario> resposta = testRestTemplate.exchange("/usuarios/cadastrar", 
 				HttpMethod.POST, requisicao, Usuario.class);
@@ -56,9 +56,9 @@ import com.generation.blogpessoal.service.UsuarioService;
 	@DisplayName("Não deve permitir duplicação do Usuário")
 	public void naoDeveDuplicarUsuario() {
 		
-		usuarioService.cadastraUsuario(new Usuario(0L, "Maiar", "isadora@gmail.com", "51 e pinga", "https://i.imgur.com/FETvs20.jpg"));
+		usuarioService.cadastraUsuario(new Usuario(0L, "Maiar", "isadora@gmail.com", "51 e pinga", "https://i.imgur.com/FETvs20.jpg","Normal"));
 		
-		HttpEntity<Usuario> requisicao = new HttpEntity<Usuario>(new Usuario(0L, "Maiar", "isadora@gmail.com", "51 e pinga", "https://i.imgur.com/FETvs20.jpg"));
+		HttpEntity<Usuario> requisicao = new HttpEntity<Usuario>(new Usuario(0L, "Maiar", "isadora@gmail.com", "51 e pinga", "https://i.imgur.com/FETvs20.jpg","Normal"));
 		
 		ResponseEntity<Usuario> resposta = testRestTemplate.exchange("/usuarios/cadastrar", HttpMethod.POST, requisicao, Usuario.class);
 		
@@ -70,9 +70,9 @@ import com.generation.blogpessoal.service.UsuarioService;
 	@DisplayName("Alterar um usuário")
 	public void deveAtualizarUmUsuario() {
 		
-		Optional<Usuario> usuarioCreate = usuarioService.cadastraUsuario(new Usuario(0L, "Michael", "michaeltrimundial@gmail.com","nunca fui rebaixado", "https://i.imgur.com/FETvs20.jpg"));
+		Optional<Usuario> usuarioCreate = usuarioService.cadastraUsuario(new Usuario(0L, "Michael", "michaeltrimundial@gmail.com","nunca fui rebaixado", "https://i.imgur.com/FETvs20.jpg","Normal"));
 		
-		Usuario usuarioUpdate = new Usuario(usuarioCreate.get().getId(), "Michael", "michaeltrimundial@gmail.com", "nunca fui rebaixado", "https://i.imgur.com/FETvs20.jpg");
+		Usuario usuarioUpdate = new Usuario(usuarioCreate.get().getId(), "Michael", "michaeltrimundial@gmail.com", "nunca fui rebaixado", "https://i.imgur.com/FETvs20.jpg", "Normal");
 		
 		HttpEntity<Usuario> requisicao = new HttpEntity<Usuario>(usuarioUpdate);
 		
@@ -90,9 +90,9 @@ import com.generation.blogpessoal.service.UsuarioService;
 	@DisplayName("Listar todos os usuários")
 	public void deveMostrarTodosUsuarios() {
 		
-		usuarioService.cadastraUsuario(new Usuario(0L, "Michael", "michaeltrimundial@gmail.com","nunca fui rebaixado", "https://i.imgur.com/FETvs20.jpg"));
+		usuarioService.cadastraUsuario(new Usuario(0L, "Michael", "michaeltrimundial@gmail.com","nunca fui rebaixado", "https://i.imgur.com/FETvs20.jpg","Normal"));
 		
-		usuarioService.cadastraUsuario(new Usuario(0L, "Miguel", "miguel@gmail.com","sempre fui rebaixado", "https://i.imgur.com/FETvs20.jpg"));
+		usuarioService.cadastraUsuario(new Usuario(0L, "Miguel", "miguel@gmail.com","sempre fui rebaixado", "https://i.imgur.com/FETvs20.jpg","Normal"));
 		
 		ResponseEntity<String> resposta = testRestTemplate
 				.withBasicAuth("root", "root")

@@ -30,9 +30,9 @@ public class UsuarioRepositoryTest {
 	@BeforeAll
 	void start() {
 		
-		repository.save(new Usuario(1L, "Maiar", "isadora@gmail.com","51 e pinga", "https://i.imgur.com/FETvs20.jpg"));
-		repository.save(new Usuario(2L, "Michael", "michaeltrimundial@gmail.com","nunca fui rebaixado", "https://i.imgur.com/FETvs20.jpg"));
-		repository.save(new Usuario(3L, "Brocco", "broco@gmail.com","broccolis", "https://i.imgur.com/FETvs20.jpg"));
+		repository.save(new Usuario(1L, "Maiar", "isadora@gmail.com","51 e pinga", "https://i.imgur.com/FETvs20.jpg","Normal"));
+		repository.save(new Usuario(2L, "Michael", "michaeltrimundial@gmail.com","nunca fui rebaixado", "https://i.imgur.com/FETvs20.jpg","Normal"));
+		repository.save(new Usuario(3L, "Brocco", "broco@gmail.com","broccolis", "https://i.imgur.com/FETvs20.jpg","Normal"));
 	}
 	
 	//ISTO TUDO É UM TESTE, ele vai te retornar um usuario:

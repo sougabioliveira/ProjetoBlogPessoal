@@ -14,6 +14,16 @@ public class UsuarioLogin {
 	private String foto;
 	
 	private String token;
+	
+	private String type;
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 
 	public Long getId() {
 		return id;

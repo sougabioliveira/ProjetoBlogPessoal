@@ -38,18 +38,30 @@ public class Usuario {
 	
 	private String foto;
 	
+	private String type;
+	
+	
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties("usuario")
 	private List<Postagem> postagem;
 
 	//Metodos construtores para testes	
 	//os parametros precisam estar na mesma ordem que eles são declarados
-	public Usuario(long id, String nome, String usuario, String senha, String foto) {
+	public Usuario(long id, String nome, String usuario, String senha, String foto, String type) {
 		this.id = id;
 		this.nome = nome;
 		this.usuario = usuario;
 		this.senha = senha;
 		this.foto = foto;
+		this.type = type;
 	}
 	
 	//construtor vazio
